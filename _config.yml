@@ -1,0 +1,109 @@
+title: Munchboka
+author: René Ask, Edvard Munch Videregående Skole
+copyright: "2026"
+# logo: logo/evg_logo_med_1T.png
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", README.md, LICENSE.md, LICENSE_CONTENT.md, HOWTOWRITE.md]
+description: "Hub for læreverk i Munchboka"
+
+options:
+  numbered: true
+
+execute:
+  execute_notebooks: off
+
+parse:
+  myst_enable_extensions:
+    - dollarmath
+    - amsmath
+    - html_image
+    - deflist
+    - tasklist
+    - attrs_inline
+    - attrs_block
+    - smartquotes
+    - colon_fence
+
+
+
+repository:
+  url: https://github.com/reneaas/reneaas.github.io
+  path_to_book: book/
+  branch: main/
+
+
+pdfhtml:
+  extra_css:
+    - _static
+  
+
+extra_static_paths:
+  - _static
+
+html:
+  use_issues_button: false
+  use_repository_button: false
+  nb_number_source_lines: false
+  extra_js:
+    - _static
+    - https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.4/mermaid.min.js
+  extra_css:
+    - _static/
+
+sphinx:
+  extra_extensions:
+    - sphinx_proof
+    - sphinx_inline_tabs
+    - sphinxmermaid
+    - sphinxcontrib.tikz
+    - sphinx_jupyterbook_latex
+    - sphinxcontrib.video
+    - munchboka_edutools
+
+
+  config:
+    language: norwegian
+    html_favicon: favicon.ico
+    html_baseurl: "https://www.munchboka.no"
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3.2/es5/tex-mml-chtml.js
+    # mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+    mathjax3_config:
+      # svg:
+      #   fontCache: global
+      tex:
+        macros:
+          annotateAbove: ["\\mathrel{\\overset{\\substack{\\text{#2} \\\\ \\Bigg\\downarrow}}{#1}}", 2]
+          annotateBelow: ["\\mathrel{\\underset{\\substack{\\Bigg\\uparrow \\\\ \\text{#2}}}{#1}}", 2]
+          cline: ["\\underline{\\phantom{#1}}", 1]
+          and: ["\\quad \\land \\quad"]
+          or: ["\\quad \\lor \\quad"]
+          liff: ["\\quad \\iff \\quad"]
+          limplies: ["\\quad \\implies \\quad"]
+          limpliedby: ["\\quad \\impliedby \\quad"]
+          lland: ["\\; \\land \\;"]
+          degree: ["^\\circ"]
+          qog: ["\\quad \\text{og} \\quad"]
+          qder: ["\\quad \\text{der} \\quad"]
+          qeller: ["\\quad \\text{eller} \\quad"]
+          qhvis: ["\\quad \\text{hvis} \\quad"]
+          qfor: ["\\quad \\text{for} \\quad"]
+          natural: ["\\mathbb{N}"]
+          integer: ["\\mathbb{Z}"]
+          rational: ["\\mathbb{Q}"]
+          real: ["\\mathbb{R}"]
+          irrational: ["\\mathbb{Q}^c"]
+          qcomma: [",\\quad"]
+          nimplies: ["\\quad\\mathrel{\\not\\!\\!\\!\\implies}\\quad"]
+          nimpliedby: ["\\quad\\mathrel{\\not\\!\\!\\!\\impliedby}\\quad"]
+          niff: ["\\quad\\mathrel{\\not\\!\\!\\!\\iff}\\quad"]
+          cubica: ["\\raisebox{-0.4ex}{\\small\\(\\frown\\!\\smile\\)}", 0]
+          cubicb: ["\\raisebox{-0.4ex}{\\small\\(\\smile\\!\\frown\\)}", 0]
+          t: ["\\mathrm{#1}", 1]
+          d: ["{\\displaystyle {#1}}", 1]
+
+
+
+    html_theme_options:
+      pygments_light_style: "github-light"
+      pygments_dark_style: "github-dark-high-contrast"
+    templates_path:
+      - "_templates"
