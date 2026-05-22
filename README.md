@@ -1,1 +1,3 @@
 # Munchboka
+
+Hub for Munchboka.
