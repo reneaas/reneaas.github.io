@@ -8,8 +8,8 @@ gutter: 3
 
 ::::{grid-item-card}
 ---
-link: /1t
-link-type: doc
+link: /1t/
+link-type: url
 ---
 **Munchboka 1T**
 
