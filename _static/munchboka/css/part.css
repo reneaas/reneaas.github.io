@@ -1,0 +1,96 @@
+/* ============================================================
+   Part directive  (.part)
+   A unified card using the problem-level-3 color scheme.
+   ============================================================ */
+
+/* ── Card wrapper ───────────────────────────────────────────── */
+div.part {
+  display: flex;
+  align-items: stretch;
+
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 98, 190, 0.6);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin: 0.9rem 0 0.9rem 0.5rem;
+}
+
+/* ── Label panel ────────────────────────────────────────────── */
+div.part-label {
+  flex-shrink: 0;
+  min-width: 2.4rem;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.55rem 0.4rem;
+
+  font-weight: 700;
+  color: rgb(0, 62, 120);          /* deep blue for contrast on light bg */
+  background-color: rgba(0, 98, 190, 0.20);
+
+  border-right: 1px solid rgba(0, 98, 190, 0.30);
+}
+
+/* ── Body panel ─────────────────────────────────────────────── */
+div.part-body {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;                 /* clip any child negative-margin overflow */
+
+  background-color: var(--admonition-background-color-light, #ffffff);
+  padding: 0.5rem 1rem !important;
+  box-sizing: border-box;
+}
+
+/* Keep first/last child flush with the vertical padding edges */
+div.part-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+div.part-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Give full-width block children (admonitions, etc.) breathing room
+   so they never touch the left/right edges of the body panel.    */
+div.part-body > .admonition,
+div.part-body > div {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-mode="dark"] div.part {
+  border-color: rgba(0, 98, 190, 0.80);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+[data-mode="dark"] div.part-label,
+html[data-mode="dark"] div.part-label {
+  color: #c8dcf5;                   /* light blue for contrast on dark bg */
+  background-color: rgba(0, 98, 190, 0.30);
+  border-right-color: rgba(0, 98, 190, 0.45);
+}
+
+[data-mode="dark"] div.part-body,
+html[data-mode="dark"] div.part-body {
+  background-color: var(--admonition-background-color-dark, #2632380e);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-mode="auto"] div.part {
+    border-color: rgba(0, 98, 190, 0.80);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  }
+
+  [data-mode="auto"] div.part-label {
+    color: #c8dcf5;
+    background-color: rgba(0, 98, 190, 0.30);
+    border-right-color: rgba(0, 98, 190, 0.45);
+  }
+
+  [data-mode="auto"] div.part-body {
+    background-color: var(--admonition-background-color-dark, #2632380e);
+  }
+}

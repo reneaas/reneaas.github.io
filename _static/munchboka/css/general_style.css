@@ -1,0 +1,74 @@
+/* Minimal default styles for munchboka-edutools */
+.quiz-main-container {
+  margin: 1rem 0;
+}
+.quiz-image.adaptive-figure {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Figure and graph styles --- */
+
+/* Prevent any anchor marked no-click from being clickable (used by inline SVG figures) */
+a.no-click,
+.no-scaled-link {
+  pointer-events: none !important;
+}
+
+/* Container-level adaptive figure: ensure any contained raster/SVG scales responsively */
+.adaptive-figure img,
+.adaptive-figure svg,
+img.adaptive-figure,
+svg.graph-inline-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Optional plot figure spacing */
+figure.plot-figure {
+  margin: 1em auto;
+}
+
+/* Theme-aware adjustment for dark mode when the theme sets data-mode on <html> */
+[data-mode="dark"] .adaptive-figure img,
+[data-mode="dark"] .adaptive-figure svg,
+[data-mode="dark"] img.adaptive-figure,
+[data-mode="dark"] svg.graph-inline-svg {
+  /* Invert for dark mode to preserve contrast of typical light-on-white math figures */
+  filter: invert(100%) hue-rotate(180deg) !important;
+  background: transparent !important;
+  background-color: inherit !important;
+}
+
+/* Auto mode follows system preference; keep same background behavior */
+@media (prefers-color-scheme: dark) {
+  [data-mode="auto"] .adaptive-figure img,
+  [data-mode="auto"] .adaptive-figure svg,
+  [data-mode="auto"] img.adaptive-figure,
+  [data-mode="auto"] svg.graph-inline-svg {
+    filter: invert(100%) hue-rotate(180deg) !important;
+    background: transparent !important;
+    background-color: inherit !important;
+  }
+}
+
+/* Explicit light mode (or default) keeps figures normal */
+[data-mode="light"] .adaptive-figure img,
+[data-mode="light"] .adaptive-figure svg,
+[data-mode="light"] img.adaptive-figure,
+[data-mode="light"] svg.graph-inline-svg {
+  filter: invert(0%) !important;
+}
+
+/* Allow opt-out by adding the class no-invert alongside adaptive-figure */
+.adaptive-figure.no-invert img,
+.adaptive-figure.no-invert svg,
+img.adaptive-figure.no-invert,
+svg.graph-inline-svg.no-invert,
+[data-mode="dark"] .adaptive-figure.no-invert img,
+[data-mode="dark"] .adaptive-figure.no-invert svg,
+[data-mode="auto"] .adaptive-figure.no-invert img,
+[data-mode="auto"] .adaptive-figure.no-invert svg {
+  filter: invert(0%) hue-rotate(0deg) !important;
+}
