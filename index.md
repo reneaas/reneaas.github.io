@@ -11,7 +11,7 @@ gutter: 3
 link: /1t/
 link-type: url
 ---
-**Munchboka 1T**
+**Matematikk 1T**
 
 
 ^^^
@@ -30,12 +30,32 @@ width: 100%
 link: /r1/
 link-type: url
 ---
-**Munchboka R1**
+**Matematikk R1**
 
 
 ^^^
 
 :::{figure} ./logo/r1.png
+---
+class: no-click
+width: 100%
+---
+:::
+
+::::
+
+
+::::{grid-item-card}
+---
+link: /r2/
+link-type: url
+---
+**Matematikk R2**
+
+
+^^^
+
+:::{figure} ./logo/r2.png
 ---
 class: no-click
 width: 100%
