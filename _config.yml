@@ -58,6 +58,7 @@ sphinx:
     - sphinx_jupyterbook_latex
     - sphinxcontrib.video
     - munchboka_edutools
+    - sphinx_sitemap
 
 
   config:
