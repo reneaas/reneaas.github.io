@@ -27,7 +27,7 @@ width: 100%
 
 ::::{grid-item-card}
 ---
-link: /1t/
+link: /r1/
 link-type: url
 ---
 **Munchboka R1**
