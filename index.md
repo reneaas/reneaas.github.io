@@ -12,8 +12,6 @@ link: /1t/
 link-type: url
 ---
 **Matematikk 1T**
-
-
 ^^^
 
 :::{figure} ./logo/1t.png
