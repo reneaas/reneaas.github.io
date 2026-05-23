@@ -26,7 +26,7 @@ parse:
 
 
 repository:
-  url: https://www.munchboka.no
+  url: https://github.com/reneaas/reneaas.github.io
   path_to_book: book/
   branch: main/
 
@@ -48,9 +48,6 @@ html:
     - https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.4/mermaid.min.js
   extra_css:
     - _static/
-  html_extra_path:
-      - sitemap.xml
-      - robots.txt
 
 sphinx:
   extra_extensions:
@@ -67,6 +64,9 @@ sphinx:
     language: norwegian
     html_favicon: favicon.ico
     html_baseurl: "https://www.munchboka.no/"
+    html_extra_path:
+      - sitemap.xml
+      - robots.txt
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3.2/es5/tex-mml-chtml.js
     # mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
     mathjax3_config:
