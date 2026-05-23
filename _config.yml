@@ -48,6 +48,9 @@ html:
     - https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.4/mermaid.min.js
   extra_css:
     - _static/
+  html_extra_path:
+      - sitemap.xml
+      - robots.txt
 
 sphinx:
   extra_extensions:
