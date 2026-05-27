@@ -8,7 +8,7 @@ gutter: 3
 
 ::::{grid-item-card}
 ---
-link: /1t/
+link: https://www.munchboka.no/1t/
 link-type: url
 ---
 **Matematikk 1T**
@@ -25,7 +25,7 @@ width: 100%
 
 ::::{grid-item-card}
 ---
-link: /r1/
+link: https://www.munchboka.no/r1/
 link-type: url
 ---
 **Matematikk R1**
