@@ -43,7 +43,7 @@ width: 100%
 ::::
 
 
-<!-- ::::{grid-item-card}
+::::{grid-item-card}
 ---
 link: /r2/
 link-type: url
@@ -60,7 +60,7 @@ width: 100%
 ---
 :::
 
-:::: -->
+::::
 
 :::::
 

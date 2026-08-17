@@ -9,4 +9,8 @@
     <loc>https://munchboka.no/r1/sitemap.xml</loc>
   </sitemap>
 
+  <sitemap>
+    <loc>https://munchboka.no/r2/sitemap.xml</loc>
+  </sitemap>
+
 </sitemapindex>
