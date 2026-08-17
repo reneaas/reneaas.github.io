@@ -106,6 +106,9 @@
 .mcq-container {
     margin: 20px 0;
     position: relative;
+    border: 1px solid var(--card-border-color);
+    border-radius: 12px;
+    padding: 20px;
 }
 
 /* Hidden source markup for native-rendered quiz content (harvested by JS) */
@@ -206,81 +209,201 @@
 /* Buttons */
 .quiz-main-container .button-container {
     margin-top: 20px;
-    text-align: center; /* match original */
-}
-
-/* Ensure inline layout and spacing like original */
-.quiz-main-container .button { display: inline-block; margin: 5px; }
-
-.button {
-    color: teal;
-    border: none;
-    padding: 8px 20px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+}
+
+.quiz-main-container .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    font-size: 0.92rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+    margin: 4px 2px;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.button:hover {
-    background-color: var(--button-hover-background-color);
-    transform: translateY(-2px);
+/* Check/Submit button — green */
+.quiz-main-container .button-run {
+    border: 1.5px solid rgba(34, 197, 94, 0.5);
+    color: inherit;
+    background: transparent;
 }
 
-.button:active {
-    transform: translateY(0);
+[data-mode=light] .quiz-main-container .button-run {
+    color: #166534;
+    border-color: rgba(34, 197, 94, 0.5);
 }
 
-/* Run (Check) button aligns with interactive code style */
-.button-run {
-    background-color: #28a745;
-    color: black;
+[data-mode=light] .quiz-main-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.75);
 }
 
-.button-run:hover {
-    background-color: #218838;
+@media (prefers-color-scheme: light) {
+    .quiz-main-container .button-run {
+        color: #166534;
+        border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .quiz-main-container .button-run:hover {
+        background: rgba(34, 197, 94, 0.08);
+        border-color: rgba(34, 197, 94, 0.75);
+    }
 }
 
-.button-run:active {
-    background-color: #1e7e34;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+[data-mode=dark] .quiz-main-container .button-run {
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.4);
 }
 
-/* Next button */
-.button-next {
-    background-color: #00ffb7bd;
-    color: black !important;
+[data-mode=dark] .quiz-main-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.65);
 }
 
-.button-next:hover {
-    background-color: #02cbbe;
+@media (prefers-color-scheme: dark) {
+    .quiz-main-container .button-run {
+        color: #86efac;
+        border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .quiz-main-container .button-run:hover {
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.65);
+    }
 }
 
-.button-next:active {
-    background-color: #00a095;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+/* Next button — blue */
+.quiz-main-container .button-next {
+    border: 1.5px solid rgba(59, 130, 246, 0.5);
+    color: #1e3a8a !important;
+    background: transparent;
 }
 
-/* Previous button */
-.button-prev {
-    background-color: #ff8800;
-    color: black !important;
+
+.quiz-main-container .button-next:hover {
+    background: rgba(59, 130, 246, 0.05);
+    border-color: rgba(59, 130, 246, 0.75);
 }
 
-.button-prev:hover {
-    background-color: #c66900;
+[data-mode=light] .quiz-main-container .button-next,
+html.light-mode .quiz-main-container .button-next,
+body.light-mode .quiz-main-container .button-next,
+html[data-theme='light'] .quiz-main-container .button-next,
+body[data-theme='light'] .quiz-main-container .button-next {
+    color: #1e3a8a !important;
+    border-color: rgba(59, 130, 246, 0.5) !important;
+    background: transparent !important;
 }
 
-.button-prev:active {
-    background-color: #ad5d01;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+[data-mode=light] .quiz-main-container .button-next:hover,
+html.light-mode .quiz-main-container .button-next:hover,
+body.light-mode .quiz-main-container .button-next:hover,
+html[data-theme='light'] .quiz-main-container .button-next:hover,
+body[data-theme='light'] .quiz-main-container .button-next:hover {
+    background: rgba(59, 130, 246, 0.05) !important;
+    border-color: rgba(59, 130, 246, 0.75) !important;
+}
+
+[data-mode=dark] .quiz-main-container .button-next,
+html.dark-mode .quiz-main-container .button-next,
+body.dark-mode .quiz-main-container .button-next,
+html[data-theme='dark'] .quiz-main-container .button-next,
+body[data-theme='dark'] .quiz-main-container .button-next {
+    color: #93c5fd !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+    background: transparent !important;
+}
+
+[data-mode=dark] .quiz-main-container .button-next:hover,
+html.dark-mode .quiz-main-container .button-next:hover,
+body.dark-mode .quiz-main-container .button-next:hover,
+html[data-theme='dark'] .quiz-main-container .button-next:hover,
+body[data-theme='dark'] .quiz-main-container .button-next:hover {
+    background: rgba(59, 130, 246, 0.12) !important;
+    border-color: rgba(59, 130, 246, 0.65) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .quiz-main-container .button-next {
+        color: #93c5fd !important;
+        border-color: rgba(59, 130, 246, 0.4) !important;
+        background: transparent !important;
+    }
+
+    .quiz-main-container .button-next:hover {
+        background: rgba(59, 130, 246, 0.12) !important;
+        border-color: rgba(59, 130, 246, 0.65) !important;
+    }
+}
+
+/* Previous button — amber */
+.quiz-main-container .button-prev {
+    border: 1.5px solid rgba(234, 179, 8, 0.5);
+    color: #92400e !important;
+    background: transparent;
+}
+
+
+.quiz-main-container .button-prev:hover {
+    background: rgba(234, 179, 8, 0.05);
+    border-color: rgba(234, 179, 8, 0.75);
+}
+
+[data-mode=light] .quiz-main-container .button-prev,
+html.light-mode .quiz-main-container .button-prev,
+body.light-mode .quiz-main-container .button-prev,
+html[data-theme='light'] .quiz-main-container .button-prev,
+body[data-theme='light'] .quiz-main-container .button-prev {
+    color: #92400e !important;
+    border-color: rgba(234, 179, 8, 0.5) !important;
+    background: transparent !important;
+}
+
+[data-mode=light] .quiz-main-container .button-prev:hover,
+html.light-mode .quiz-main-container .button-prev:hover,
+body.light-mode .quiz-main-container .button-prev:hover,
+html[data-theme='light'] .quiz-main-container .button-prev:hover,
+body[data-theme='light'] .quiz-main-container .button-prev:hover {
+    background: rgba(234, 179, 8, 0.05) !important;
+    border-color: rgba(234, 179, 8, 0.75) !important;
+}
+
+[data-mode=dark] .quiz-main-container .button-prev,
+html.dark-mode .quiz-main-container .button-prev,
+body.dark-mode .quiz-main-container .button-prev,
+html[data-theme='dark'] .quiz-main-container .button-prev,
+body[data-theme='dark'] .quiz-main-container .button-prev {
+    color: #fde68a !important;
+    border-color: rgba(234, 179, 8, 0.4) !important;
+    background: transparent !important;
+}
+
+[data-mode=dark] .quiz-main-container .button-prev:hover,
+html.dark-mode .quiz-main-container .button-prev:hover,
+body.dark-mode .quiz-main-container .button-prev:hover,
+html[data-theme='dark'] .quiz-main-container .button-prev:hover,
+body[data-theme='dark'] .quiz-main-container .button-prev:hover {
+    background: rgba(234, 179, 8, 0.12) !important;
+    border-color: rgba(234, 179, 8, 0.65) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .quiz-main-container .button-prev {
+        color: #fde68a !important;
+        border-color: rgba(234, 179, 8, 0.4) !important;
+        background: transparent !important;
+    }
+
+    .quiz-main-container .button-prev:hover {
+        background: rgba(234, 179, 8, 0.12) !important;
+        border-color: rgba(234, 179, 8, 0.65) !important;
+    }
 }
 
 /* Toast Notification */
@@ -406,4 +529,3 @@ body[data-theme='dark'] .quiz-resume-prompt,
     color: var(--text-color) !important;
     border-color: var(--card-border-color) !important;
 }
-

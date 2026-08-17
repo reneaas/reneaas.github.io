@@ -141,19 +141,141 @@
 
 .pairing-puzzle-container .button-container {
   display:          flex;
+  flex-wrap:        wrap;
   justify-content:  center;
+  align-items:      center;
   gap:              10px;
   margin-top:       20px;
 }
 
-/* .pairing-puzzle-container .button {
-  padding:          10px 20px;
-  border-radius:    5px;
-  cursor:           pointer;
-  color:            var(--pp-button-text-color);
-  background:       var(--pp-primary-color);
-  border:           none;
-} */
+.pairing-puzzle-container .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 4px 2px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.pairing-puzzle-container .button-run {
+  border: 1.5px solid rgba(34, 197, 94, 0.5);
+  color: #166534;
+  background: transparent;
+}
+
+.pairing-puzzle-container .button-run:hover {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.75);
+}
+
+.pairing-puzzle-container .button-reset {
+  border: 1.5px solid rgba(234, 179, 8, 0.5);
+  color: #92400e;
+  background: transparent;
+}
+
+.pairing-puzzle-container .button-reset:hover {
+  background: rgba(234, 179, 8, 0.05);
+  border-color: rgba(234, 179, 8, 0.75);
+}
+
+[data-mode="light"] .pairing-puzzle-container .button-run {
+  color: #166534;
+  border-color: rgba(34, 197, 94, 0.5);
+  background: transparent;
+}
+
+[data-mode="light"] .pairing-puzzle-container .button-run:hover {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.75);
+}
+
+[data-mode="light"] .pairing-puzzle-container .button-reset {
+  color: #92400e;
+  border-color: rgba(234, 179, 8, 0.5);
+  background: transparent;
+}
+
+[data-mode="light"] .pairing-puzzle-container .button-reset:hover {
+  background: rgba(234, 179, 8, 0.05);
+  border-color: rgba(234, 179, 8, 0.75);
+}
+
+[data-mode="dark"] .pairing-puzzle-container .button-run {
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.4);
+  background: transparent;
+}
+
+[data-mode="dark"] .pairing-puzzle-container .button-run:hover {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.65);
+}
+
+[data-mode="dark"] .pairing-puzzle-container .button-reset {
+  color: #fde68a;
+  border-color: rgba(234, 179, 8, 0.4);
+  background: transparent;
+}
+
+[data-mode="dark"] .pairing-puzzle-container .button-reset:hover {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-mode="auto"] .pairing-puzzle-container .button-run {
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.4);
+    background: transparent;
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.65);
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-reset {
+    color: #fde68a;
+    border-color: rgba(234, 179, 8, 0.4);
+    background: transparent;
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-reset:hover {
+    background: rgba(234, 179, 8, 0.12);
+    border-color: rgba(234, 179, 8, 0.65);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  [data-mode="auto"] .pairing-puzzle-container .button-run {
+    color: #166534;
+    border-color: rgba(34, 197, 94, 0.5);
+    background: transparent;
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.75);
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-reset {
+    color: #92400e;
+    border-color: rgba(234, 179, 8, 0.5);
+    background: transparent;
+  }
+
+  [data-mode="auto"] .pairing-puzzle-container .button-reset:hover {
+    background: rgba(234, 179, 8, 0.05);
+    border-color: rgba(234, 179, 8, 0.75);
+  }
+}
 
 
 /* optional: code blocks inside draggable items */

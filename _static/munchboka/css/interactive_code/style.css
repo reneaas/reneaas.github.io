@@ -7,8 +7,10 @@
 	font-size: 14px;
 }
 
+
 .CodeMirror {
 	height: auto !important;
+	border-radius: 1.4rem !important;
 }
 
 /* Spesiell highlighting på utvalgte fraser i kommentarer */
@@ -66,25 +68,21 @@
 
 [data-mode="light"] .CodeMirror {
 	border: 1px solid black; /* Add a black border */
-	border-radius: 4px; /* Optional: Add rounded corners */
 }
 
 @media (prefers-color-scheme: light) {
 	.CodeMirror {
 		border: 1px solid black; /* Add a black border */
-		border-radius: 4px; /* Optional: Add rounded corners */
 	}
 }
 
 [data-mode="dark"] .CodeMirror {
 	border: 1px solid white; /* Add a black border */
-	border-radius: 4px; /* Optional: Add rounded corners */
 }
 
 @media (prefers-color-scheme: dark) {
 	.CodeMirror {
 		border: 1px solid white; /* Add a black border */
-		border-radius: 4px; /* Optional: Add rounded corners */
 	}
 }
 

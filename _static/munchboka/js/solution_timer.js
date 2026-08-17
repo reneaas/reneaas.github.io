@@ -4,7 +4,11 @@
   const START_MARGIN_PX = 240;
   const UPDATE_INTERVAL_MS = 1000;
 
+  // Map: div.solution-2 element → entry
   const stateByElement = new Map();
+  // Set of trigger elements already passed to visibilityObserver.observe()
+  const observedTriggers = new Set();
+
   let activeModal = null;
   let modalElements = null;
   let visibilityObserver = null;
@@ -43,7 +47,7 @@
 
   function isLocked(entry) {
     if (entry.delaySeconds <= 0) return false;
-    if (entry.state.bypassed === true) return false;
+    if (entry.state.bypassed) return false;
     if (!entry.state.startedAt) return false;
     return remainingSeconds(entry) > 0;
   }
@@ -57,7 +61,10 @@
     statusNode.className = "solution-lock-status";
     statusNode.setAttribute("aria-live", "polite");
     entry.statusNode = statusNode;
-    entry.titleNode.insertAdjacentElement("afterend", statusNode);
+    // Append to the wrapper — NOT between button and content, because
+    // solution2.js uses btn.nextElementSibling to find the content div
+    // and would break if we insert anything in between.
+    entry.element.appendChild(statusNode);
     return statusNode;
   }
 
@@ -67,16 +74,15 @@
 
     if (isLocked(entry)) {
       entry.element.classList.add("solution-soft-locked");
-      enforceLockedClosed(entry);
       statusNode.hidden = false;
-      statusNode.textContent = `Løsningen åpnes om ${formatDuration(remainingSeconds(entry))}.`;
+      statusNode.textContent = `Løsningsforslag åpnes automatisk om ${formatDuration(remainingSeconds(entry))}. Du bør prøve litt til før du sjekker løsningsforslaget.`;
       return;
     }
 
     entry.element.classList.remove("solution-soft-locked");
     if (!started && entry.delaySeconds > 0) {
       statusNode.hidden = false;
-      statusNode.textContent = `Løsningen blir tilgjengelig ${formatDuration(entry.delaySeconds)} etter at du har sett oppgaven.`;
+      statusNode.textContent = `Løsningsforslag åpnes automatisk om ${formatDuration(entry.delaySeconds)}. Du bør prøve litt til før du sjekker løsningsforslaget.`;
       return;
     }
 
@@ -112,52 +118,21 @@
         return;
       }
 
-      if (isNearViewport(entry.element)) {
+      if (isNearViewport(entry.triggerElement)) {
         ensureStarted(entry);
       }
     });
   }
 
-  function toggleLabel(open) {
-    if (open) {
-      return window.toggleHintHide || "Klikk for å skjule";
-    }
-
-    return window.toggleHintShow || "Klikk for å vise";
-  }
-
-  function setExpandedState(entry, expanded) {
-    if (!entry.element.classList.contains("toggle")) {
-      return false;
-    }
-
-    const toggleButton = entry.element.querySelector(".toggle-button");
-    entry.element.classList.toggle("toggle-hidden", !expanded);
-
-    if (toggleButton) {
-      toggleButton.classList.toggle("toggle-button-hidden", !expanded);
-      toggleButton.dataset.toggleHint = toggleLabel(expanded);
-      toggleButton.setAttribute("aria-expanded", expanded ? "true" : "false");
-    }
-
-    return true;
-  }
-
+  // Open the solution by simulating a click on the toggle button.
+  // Because bypassed=true at call time, isLocked() will be false in the
+  // capture handler so the click flows through to solution2.js normally.
   function openSolution(entry) {
-    if (!entry) {
-      return;
-    }
-
-    if (setExpandedState(entry, true)) {
-      return;
-    }
-
-    if (!entry.titleNode) return;
-    window.setTimeout(() => {
-      entry.titleNode.dispatchEvent(
+    if (entry.toggleBtn.getAttribute("aria-expanded") !== "true") {
+      entry.toggleBtn.dispatchEvent(
         new MouseEvent("click", { bubbles: true, cancelable: true, view: window })
       );
-    }, 0);
+    }
   }
 
   function closeModal() {
@@ -258,12 +233,13 @@
   }
 
   function handleLockedClick(entry, event) {
+    // If not started yet, start the timer on first interaction
     if (entry.delaySeconds > 0 && !entry.state.startedAt) {
       ensureStarted(entry);
     }
 
     if (!isLocked(entry)) {
-      return;
+      return; // let the event through to solution2.js
     }
 
     event.preventDefault();
@@ -274,56 +250,35 @@
     openModal(entry);
   }
 
-  function isToggleTrigger(target, root) {
-    if (!(target instanceof Element)) {
-      return false;
-    }
-
-    const trigger = target.closest(".admonition-title, .toggle-button");
-    return Boolean(trigger && root.contains(trigger));
-  }
-
-  function syncCollapsedState(entry, collapsed) {
-    setExpandedState(entry, !collapsed);
-  }
-
-  function enforceLockedClosed(entry) {
-    if (!isLocked(entry)) {
-      return;
-    }
-
-    syncCollapsedState(entry, true);
-  }
-
   function registerSolution(element) {
     if (stateByElement.has(element)) {
       return;
     }
 
-    const titleNode = element.querySelector(":scope > .admonition-title");
-    if (!titleNode) return;
+    const toggleBtn = element.querySelector(":scope > button.solution-2-toggle");
+    if (!toggleBtn) return;
 
-    const delayClass = Array.from(element.classList).find((className) =>
-      className.startsWith("solution-delay-")
-    );
-    const refClass = Array.from(element.classList).find((className) =>
-      className.startsWith("solution-ref-")
-    );
+    const rawDelay = toggleBtn.dataset.delaySeconds;
+    if (!rawDelay) return; // no timer for this solution
+
+    const delaySeconds = parseInt(rawDelay, 10);
+    if (!(delaySeconds > 0)) return;
+
+    // Start the timer when the nearest parent answer block becomes visible.
+    // The answer directive now renders as div.answer-2; fall back to the
+    // solution-2 element itself when there is no enclosing answer.
+    const answerParent = element.closest(".answer-2");
+    const triggerElement = answerParent || element;
 
     const solutionId =
-      (refClass ? refClass.replace("solution-ref-", "") : null) ||
       element.dataset.solutionId ||
       element.id ||
       `solution-${stateByElement.size + 1}`;
-    const delaySeconds = Number.parseInt(
-      (delayClass ? delayClass.replace("solution-delay-", "") : null) ||
-        element.dataset.delaySeconds ||
-        `${DEFAULT_DELAY_SECONDS}`,
-      10
-    );
+
     const entry = {
-      element,
-      titleNode,
+      element,       // div.solution-2
+      toggleBtn,     // button.solution-2-toggle
+      triggerElement, // what the IntersectionObserver watches
       statusNode: null,
       solutionId,
       delaySeconds: Number.isFinite(delaySeconds) ? delaySeconds : DEFAULT_DELAY_SECONDS,
@@ -332,41 +287,28 @@
 
     stateByElement.set(element, entry);
 
-    element.addEventListener(
+    // Intercept button clicks in the capture phase so we can block them
+    // before solution2.js's bubble-phase handler fires.
+    toggleBtn.addEventListener(
       "click",
       (event) => {
-        if (!isToggleTrigger(event.target, element)) {
-          return;
-        }
-
         handleLockedClick(entry, event);
       },
       true
     );
 
-    element.addEventListener(
+    toggleBtn.addEventListener(
       "keydown",
       (event) => {
-        if (event.key !== "Enter" && event.key !== " ") {
-          return;
-        }
-
-        if (!isToggleTrigger(event.target, element)) {
-          return;
-        }
-
+        if (event.key !== "Enter" && event.key !== " ") return;
         handleLockedClick(entry, event);
       },
       true
     );
 
-    const observer = new MutationObserver(() => {
-      enforceLockedClosed(entry);
-    });
-    observer.observe(element, { attributes: true, attributeFilter: ["class"] });
-
-    if (visibilityObserver) {
-      visibilityObserver.observe(entry.element);
+    if (visibilityObserver && !observedTriggers.has(triggerElement)) {
+      visibilityObserver.observe(triggerElement);
+      observedTriggers.add(triggerElement);
     }
 
     updateStatus(entry);
@@ -386,9 +328,14 @@
         observerEntries.forEach((observerEntry) => {
           if (!observerEntry.isIntersecting) return;
           if (observerEntry.intersectionRatio < VISIBILITY_THRESHOLD) return;
-          const entry = stateByElement.get(observerEntry.target);
-          if (!entry) return;
-          ensureStarted(entry);
+
+          // Start all solution entries that use this trigger element
+          stateByElement.forEach((entry) => {
+            if (entry.triggerElement === observerEntry.target) {
+              ensureStarted(entry);
+            }
+          });
+
           visibilityObserver.unobserve(observerEntry.target);
         });
       },
@@ -398,7 +345,13 @@
       }
     );
 
-    stateByElement.forEach((entry) => visibilityObserver.observe(entry.element));
+    stateByElement.forEach((entry) => {
+      if (!observedTriggers.has(entry.triggerElement)) {
+        visibilityObserver.observe(entry.triggerElement);
+        observedTriggers.add(entry.triggerElement);
+      }
+    });
+
     startVisibleSolutions();
   }
 
@@ -407,14 +360,19 @@
       return;
     }
 
-    const solutions =
+    const buttons =
       root === document
-        ? root.querySelectorAll(".admonition.solution.solution-timed")
-        : root.matches(".admonition.solution.solution-timed")
+        ? root.querySelectorAll("button.solution-2-toggle[data-delay-seconds]")
+        : root.matches("button.solution-2-toggle[data-delay-seconds]")
           ? [root]
-          : root.querySelectorAll(".admonition.solution.solution-timed");
+          : root.querySelectorAll("button.solution-2-toggle[data-delay-seconds]");
 
-    solutions.forEach(registerSolution);
+    buttons.forEach((btn) => {
+      const wrapper = btn.parentElement;
+      if (wrapper && wrapper.classList.contains("solution-2")) {
+        registerSolution(wrapper);
+      }
+    });
   }
 
   function observeDocument() {
@@ -452,3 +410,4 @@
     window.setInterval(tick, UPDATE_INTERVAL_MS);
   });
 })();
+

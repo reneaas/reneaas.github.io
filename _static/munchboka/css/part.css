@@ -1,18 +1,25 @@
 /* ============================================================
    Part directive  (.part)
-   A unified card using the problem-level-3 color scheme.
+   Collapsible card: header row (label + toggle) + body panel.
    ============================================================ */
 
 /* ── Card wrapper ───────────────────────────────────────────── */
 div.part {
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
 
-  border-radius: 8px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(0, 98, 190, 0.6);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  margin: 0.9rem 0 0.9rem 0.5rem;
+  margin: 0.9rem 0 1.4rem 0.5rem;
+  clear: both;
+}
+
+/* ── Header row (label + toggle button) ─────────────────────── */
+div.part-header {
+  display: flex;
+  align-items: stretch;
 }
 
 /* ── Label panel ────────────────────────────────────────────── */
@@ -21,26 +28,56 @@ div.part-label {
   min-width: 2.4rem;
 
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 0.55rem 0.4rem;
 
   font-weight: 700;
-  color: rgb(0, 62, 120);          /* deep blue for contrast on light bg */
+  color: rgb(0, 62, 120);
   background-color: rgba(0, 98, 190, 0.20);
 
   border-right: 1px solid rgba(0, 98, 190, 0.30);
 }
 
+/* ── Toggle button ──────────────────────────────────────────── */
+button.part-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+
+  border: none;
+  padding: 0.55rem 0.75rem;
+  background: rgba(0, 98, 190, 0.06);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+button.part-toggle::before {
+  content: "▶";
+  font-size: 0.6em;
+  transition: transform 0.25s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+div.part-open button.part-toggle::before {
+  transform: rotate(90deg);
+}
+
 /* ── Body panel ─────────────────────────────────────────────── */
 div.part-body {
-  flex: 1;
   min-width: 0;
-  overflow: hidden;                 /* clip any child negative-margin overflow */
+  overflow: hidden;
 
   background-color: var(--admonition-background-color-light, #ffffff);
   padding: 0.5rem 1rem !important;
   box-sizing: border-box;
+
+  border-top: 1px solid rgba(0, 98, 190, 0.15);
 }
 
 /* Keep first/last child flush with the vertical padding edges */
@@ -52,12 +89,46 @@ div.part-body > *:last-child {
   margin-bottom: 0 !important;
 }
 
-/* Give full-width block children (admonitions, etc.) breathing room
-   so they never touch the left/right edges of the body panel.    */
 div.part-body > .admonition,
 div.part-body > div {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* ── Light mode ─────────────────────────────────────────────── */
+[data-mode="light"] div.part {
+  border-color: rgba(0, 98, 190, 0.6);
+}
+
+[data-mode="light"] div.part-label {
+  color: rgb(0, 62, 120);
+  background-color: rgba(0, 98, 190, 0.20);
+  border-right-color: rgba(0, 98, 190, 0.30);
+}
+
+[data-mode="light"] button.part-toggle {
+  color: #0d3060;
+  background: rgba(0, 98, 190, 0.06);
+}
+
+[data-mode="light"] button.part-toggle:hover {
+  background: rgba(0, 98, 190, 0.13);
+}
+
+@media (prefers-color-scheme: light) {
+  div.part-label {
+    color: rgb(0, 62, 120);
+    background-color: rgba(0, 98, 190, 0.20);
+  }
+
+  button.part-toggle {
+    color: #0d3060;
+    background: rgba(0, 98, 190, 0.06);
+  }
+
+  button.part-toggle:hover {
+    background: rgba(0, 98, 190, 0.13);
+  }
 }
 
 /* ── Dark mode ──────────────────────────────────────────────── */
@@ -68,14 +139,26 @@ div.part-body > div {
 
 [data-mode="dark"] div.part-label,
 html[data-mode="dark"] div.part-label {
-  color: #c8dcf5;                   /* light blue for contrast on dark bg */
+  color: #c8dcf5;
   background-color: rgba(0, 98, 190, 0.30);
   border-right-color: rgba(0, 98, 190, 0.45);
+}
+
+[data-mode="dark"] button.part-toggle,
+html[data-mode="dark"] button.part-toggle {
+  color: #9ac4f0;
+  background: rgba(0, 98, 190, 0.12);
+}
+
+[data-mode="dark"] button.part-toggle:hover,
+html[data-mode="dark"] button.part-toggle:hover {
+  background: rgba(0, 98, 190, 0.22);
 }
 
 [data-mode="dark"] div.part-body,
 html[data-mode="dark"] div.part-body {
   background-color: var(--admonition-background-color-dark, #2632380e);
+  border-top-color: rgba(0, 98, 190, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -90,7 +173,17 @@ html[data-mode="dark"] div.part-body {
     border-right-color: rgba(0, 98, 190, 0.45);
   }
 
+  [data-mode="auto"] button.part-toggle {
+    color: #9ac4f0;
+    background: rgba(0, 98, 190, 0.12);
+  }
+
+  [data-mode="auto"] button.part-toggle:hover {
+    background: rgba(0, 98, 190, 0.22);
+  }
+
   [data-mode="auto"] div.part-body {
     background-color: var(--admonition-background-color-dark, #2632380e);
+    border-top-color: rgba(0, 98, 190, 0.25);
   }
 }

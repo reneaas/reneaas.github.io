@@ -18,11 +18,15 @@ body[data-theme='dark'] pre, body[data-theme='dark'] code,
   color: #e6edf3;
 }
 
+pre {
+  border-radius: 1.4rem !important;
+}
+
 html.dark-mode pre, body.dark-mode pre,
 html[data-theme='dark'] pre, body[data-theme='dark'] pre,
 [data-mode='dark'] pre {
   border: 1px solid #30363d;
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 
 /* Basic token colors assuming highlight.js / pygments style classes */
@@ -145,3 +149,8 @@ body[data-theme='dark'] .nb-output pre,
     color: #79c0ff;
     text-decoration: underline;
   }
+
+
+button.copybtn {
+  border-radius: 1.4rem;
+}

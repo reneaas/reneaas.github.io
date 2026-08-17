@@ -8,6 +8,7 @@
 
 .CodeMirror {
     height: auto !important;
+    border-radius: 1.4rem !important;
 }
 
 /* Spesiell highlighting på utvalgte fraser i kommentarer */
@@ -65,25 +66,21 @@
 
 [data-mode="light"] .CodeMirror {
     border: 1px solid black; /* Add a black border */
-    border-radius: 4px; /* Optional: Add rounded corners */
 }
 
 @media (prefers-color-scheme: light) {
     .CodeMirror {
         border: 1px solid black; /* Add a black border */
-        border-radius: 4px; /* Optional: Add rounded corners */
     }
 }
 
 [data-mode="dark"] .CodeMirror {
     border: 1px solid white; /* Add a black border */
-    border-radius: 4px; /* Optional: Add rounded corners */
 }
 
 @media (prefers-color-scheme: dark) {
     .CodeMirror {
         border: 1px solid white; /* Add a black border */
-        border-radius: 4px; /* Optional: Add rounded corners */
     }
 }
 
@@ -107,89 +104,213 @@
     font-weight: bold !important;
 }
 
-/* General button styles */
-.button {
-    color: black !important; /* Black text for all buttons */
-    border: none; /* Remove border */
-    padding: 4px 20px !important; /* Padding around text */
-    text-align: center; /* Center text */
-    text-decoration: none; /* Remove underline */
-    display: inline-block; /* Allow setting height and width */
-    font-size: 16px; /* Font size */
-    margin: 4px 2px; /* Margin around button */
-    cursor: pointer; /* Cursor on hover */
-    border-radius: 8px; /* Rounded corners */
-    transition-duration: 0.4s; /* Transition effect on hover */
+/* General button styles — pill shape to match answer-2 / solution-2 */
+.ic-container .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 4px 2px;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-/* Run button */
-.button-run {
-    background-color: #28a745; /* Green background */
-    color: black !important; /* Black text */
+.ic-container .button:focus {
+    outline: none;
 }
 
-.button-run:hover {
-    background-color: #218838; /* Darker green on hover */
-    color: black !important; /* Keep black text on hover */
+.ic-container .button svg {
+    vertical-align: middle;
+    width: 1.1em;
+    height: 1.1em;
 }
 
-.button-run:active {
-    background-color: #1e7e34; /* Even darker green on click */
-    box-shadow: 0 5px #666; /* Shadow effect */
-    transform: translateY(4px); /* Move button down */
-    color: black !important; /* Keep black text when active */
+/* Run button — green */
+.ic-container .button-run {
+    border: 1.5px solid rgba(34, 197, 94, 0.5);
+    color: inherit;
+    background: transparent;
 }
 
-/* Reset button */
-.button-reset {
-    background-color: #ffc107; /* Orange background */
-    color: black !important; /* Black text */
+[data-mode=light] .ic-container .button-run {
+    color: #166534;
+    border-color: rgba(34, 197, 94, 0.5);
 }
 
-.button-reset:hover {
-    background-color: #e0a800; /* Darker orange on hover */
-    color: black !important; /* Keep black text on hover */
+[data-mode=light] .ic-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.75);
 }
 
-.button-reset:active {
-    background-color: #c69500; /* Even darker orange on click */
-    box-shadow: 0 5px #666; /* Shadow effect */
-    transform: translateY(4px); /* Move button down */
-    color: black !important; /* Keep black text when active */
+@media (prefers-color-scheme: light) {
+    .ic-container .button-run {
+        color: #166534;
+        border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .ic-container .button-run:hover {
+        background: rgba(34, 197, 94, 0.08);
+        border-color: rgba(34, 197, 94, 0.75);
+    }
 }
 
-/* Cancel button */
-.button-cancel {
-    background-color: #dc3545; /* Red background */
-    color: black !important; /* Black text */
+[data-mode=dark] .ic-container .button-run {
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.4);
 }
 
-.button-cancel:hover {
-    background-color: #c82333; /* Darker red on hover */
-    color: black !important; /* Keep black text on hover */
+[data-mode=dark] .ic-container .button-run:hover {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.65);
 }
 
-.button-cancel:active {
-    background-color: #bd2130; /* Even darker red on click */
-    box-shadow: 0 5px #666; /* Shadow effect */
-    transform: translateY(4px); /* Move button down */
-    color: black !important; /* Keep black text when active */
+@media (prefers-color-scheme: dark) {
+    .ic-container .button-run {
+        color: #86efac;
+        border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .ic-container .button-run:hover {
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.65);
+    }
 }
 
-.button:focus {
-    outline: none; /* Remove outline on focus */
+/* Reset button — amber */
+.ic-container .button-reset {
+    border: 1.5px solid rgba(234, 179, 8, 0.5);
+    color: inherit;
+    background: transparent;
 }
 
-.button svg {
-    /* margin-left: 8px;  */
-    vertical-align: middle; /* Align icon vertically with text */
-    width: 20px; /* Icon width */
-    height: 20px; /* Icon height */
+[data-mode=light] .ic-container .button-reset {
+    color: #92400e;
+    border-color: rgba(234, 179, 8, 0.5);
+}
+
+[data-mode=light] .ic-container .button-reset:hover {
+    background: rgba(234, 179, 8, 0.08);
+    border-color: rgba(234, 179, 8, 0.75);
+}
+
+@media (prefers-color-scheme: light) {
+    .ic-container .button-reset {
+        color: #92400e;
+        border-color: rgba(234, 179, 8, 0.5);
+    }
+
+    .ic-container .button-reset:hover {
+        background: rgba(234, 179, 8, 0.08);
+        border-color: rgba(234, 179, 8, 0.75);
+    }
+}
+
+[data-mode=dark] .ic-container .button-reset {
+    color: #fde68a;
+    border-color: rgba(234, 179, 8, 0.4);
+}
+
+[data-mode=dark] .ic-container .button-reset:hover {
+    background: rgba(234, 179, 8, 0.12);
+    border-color: rgba(234, 179, 8, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+    .ic-container .button-reset {
+        color: #fde68a;
+        border-color: rgba(234, 179, 8, 0.4);
+    }
+
+    .ic-container .button-reset:hover {
+        background: rgba(234, 179, 8, 0.12);
+        border-color: rgba(234, 179, 8, 0.65);
+    }
+}
+
+/* Cancel button — red */
+.ic-container .button-cancel {
+    border: 1.5px solid rgba(239, 68, 68, 0.5);
+    color: inherit;
+    background: transparent;
+}
+
+[data-mode=light] .ic-container .button-cancel {
+    color: #991b1b;
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+[data-mode=light] .ic-container .button-cancel:hover {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.75);
+}
+
+@media (prefers-color-scheme: light) {
+    .ic-container .button-cancel {
+        color: #991b1b;
+        border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    .ic-container .button-cancel:hover {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.75);
+    }
+}
+
+[data-mode=dark] .ic-container .button-cancel {
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+[data-mode=dark] .ic-container .button-cancel:hover {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+    .ic-container .button-cancel {
+        color: #fca5a5;
+        border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .ic-container .button-cancel:hover {
+        background: rgba(239, 68, 68, 0.12);
+        border-color: rgba(239, 68, 68, 0.65);
+    }
 }
 
 .pythonoutput {
     max-height: 600px;
     overflow-y: auto;
+}
+
+.pythonoutput:empty::before {
+
+    content: attr(data-placeholder);
+
+    color: #7d8590;
+
+    opacity: 0.55;
+
+    font-style: italic;
+
+    pointer-events: none;
+}
+
+html[data-mode="light"] .pythonoutput:empty::before {
+
+    color: #9ca3af;
+
+}
+
+html[data-mode="dark"] .pythonoutput:empty::before {
+
+    color: #6e7681;
+
 }
 
 /* Dynamically highlight error lines in editor */
@@ -221,10 +342,11 @@
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 1.4rem;
     resize: vertical;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    background: inherit;
 }
 
 .button-lock-prediction {
@@ -343,7 +465,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 1.2rem !important;
     resize: vertical;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -361,7 +483,7 @@
 
 /* Dark mode styles for the prediction textarea */
 [data-mode="dark"] .prediction-container textarea {
-    background-color: #2b2b2b;
+    background-color: #0b0b0b;
     color: #e1e1e1;
     border-color: #444444;
 }
@@ -369,7 +491,7 @@
 /* Auto mode styles for the prediction textarea */
 @media (prefers-color-scheme: dark) {
     [data-mode="auto"] .prediction-container textarea {
-        background-color: #2b2b2b;
+        background-color: #0b0b0b;
         color: #e1e1e1;
         border-color: #444444;
     }

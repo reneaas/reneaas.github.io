@@ -54,7 +54,7 @@ class TurtleCode {
         // --- LEFT COLUMN: Editor, Run Button, Output ---
         const editorContainer = document.createElement("div");
 
-        editorContainer.classList.add("turtle-left"); // for styling
+        editorContainer.classList.add("turtle-left", "ic-container"); // for styling
 
         editorContainer.style.flex = "1";          // Take 50% of available width
         editorContainer.style.minWidth = "100px";  // Reasonable min width

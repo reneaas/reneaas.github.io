@@ -32,29 +32,61 @@
 }
 
 .ggb-cas-button {
-    background-color: #2ecc71;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border-radius: 999px;
+    border: 1.5px solid rgba(34, 197, 94, 0.5);
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    font-size: 0.92rem;
     font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.ggb-cas-button:hover {
-    background-color: #27ae60;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+[data-mode=light] .ggb-cas-button {
+    color: #166534;
+    border-color: rgba(34, 197, 94, 0.5);
 }
 
-.ggb-cas-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+[data-mode=light] .ggb-cas-button:hover {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.75);
+}
+
+@media (prefers-color-scheme: light) {
+    .ggb-cas-button {
+        color: #166534;
+        border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .ggb-cas-button:hover {
+        background: rgba(34, 197, 94, 0.08);
+        border-color: rgba(34, 197, 94, 0.75);
+    }
+}
+
+[data-mode=dark] .ggb-cas-button {
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+[data-mode=dark] .ggb-cas-button:hover {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+    .ggb-cas-button {
+        color: #86efac;
+        border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .ggb-cas-button:hover {
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.65);
+    }
 }
 
 /* ========= Dialog Base Styles ========= */
@@ -231,12 +263,13 @@
     width: 200px;
     margin: 0.5em 0 0.5em 0.5em;
     padding: 0.5em;
-    background-color: var(--pst-color-surface, #f9f9f9);
-    border-left: 4px solid var(--pst-color-primary, #007ACC);
-    border-radius: 0.5em;
+    background-color: transparent;
+    border-left: 4px solid var(--exercise-color);
+    border-radius: 1.4rem;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
 .sidebar-cas .ggb-cas-button {
     width: 100%;
 }
+

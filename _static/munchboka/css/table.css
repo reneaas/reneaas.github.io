@@ -8,6 +8,8 @@
 
 .munchboka-table-container {
     /* The frame handles rounding/outline, the scroll wrapper handles overflow. */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .munchboka-table-frame {
