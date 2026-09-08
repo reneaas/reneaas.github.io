@@ -917,10 +917,16 @@ button.solution-2-toggle {
 }
 
 button.solution-2-toggle::before {
-  content: "▶";
-  font-size: 0.65em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.48em solid currentColor;
+  flex: 0 0 auto;
   transition: transform 0.2s ease;
   display: inline-block;
+  transform-origin: 42% 50%;
 }
 
 button.solution-2-toggle[aria-expanded="true"]::before {
@@ -1057,10 +1063,16 @@ button.answer-2-toggle {
 }
 
 button.answer-2-toggle::before {
-  content: "▶";
-  font-size: 0.65em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.48em solid currentColor;
+  flex: 0 0 auto;
   transition: transform 0.2s ease;
   display: inline-block;
+  transform-origin: 42% 50%;
 }
 
 button.answer-2-toggle[aria-expanded="true"]::before {
@@ -2596,10 +2608,16 @@ button.goals-toggle {
 }
 
 button.goals-toggle::before {
-  content: "▶";
-  font-size: 0.65em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.48em solid currentColor;
+  flex: 0 0 auto;
   transition: transform 0.2s ease;
   display: inline-block;
+  transform-origin: 42% 50%;
 }
 
 button.goals-toggle[aria-expanded="true"]::before {
@@ -2696,10 +2714,16 @@ button.proof-toggle {
 }
 
 button.proof-toggle::before {
-  content: "▶";
-  font-size: 0.65em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.48em solid currentColor;
+  flex: 0 0 auto;
   transition: transform 0.2s ease;
   display: inline-block;
+  transform-origin: 42% 50%;
 }
 
 button.proof-toggle[aria-expanded="true"]::before {
@@ -2791,10 +2815,16 @@ button.hint-toggle {
 }
 
 button.hint-toggle::before {
-  content: "▶";
-  font-size: 0.65em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.48em solid currentColor;
+  flex: 0 0 auto;
   transition: transform 0.2s ease;
   display: inline-block;
+  transform-origin: 42% 50%;
 }
 
 button.hint-toggle[aria-expanded="true"]::before {
@@ -2851,4 +2881,3 @@ div.hint-content {
   margin-top: 0.6rem;
   padding-left: 0.4rem;
 }
-

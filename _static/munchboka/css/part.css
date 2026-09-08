@@ -57,11 +57,16 @@ button.part-toggle {
 }
 
 button.part-toggle::before {
-  content: "▶";
-  font-size: 0.6em;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.32em solid transparent;
+  border-bottom: 0.32em solid transparent;
+  border-left: 0.45em solid currentColor;
   transition: transform 0.25s ease;
   display: inline-block;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  transform-origin: 42% 50%;
 }
 
 div.part-open button.part-toggle::before {

@@ -125,9 +125,12 @@
 }
 
 .ic-container .button svg {
+    flex: 0 0 auto;
+    display: block;
     vertical-align: middle;
     width: 1.1em;
     height: 1.1em;
+    pointer-events: none;
 }
 
 /* Run button — green */
@@ -701,4 +704,3 @@ html[data-mode="dark"] .pythonoutput:empty::before {
   background: #d68b00 !important;
   color: #fff;
 }
-

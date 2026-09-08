@@ -5,6 +5,18 @@
   display: none !important;
 }
 
+/* Workaround: on some WebKit/iOS builds, toggling the primary/secondary sidebar
+   via the checkbox-hack (:checked ~ .bd-container .bd-sidebar-primary) changes
+   `margin-left`/`visibility` but the browser fails to repaint the fixed-position
+   sidebar, so the button appears unresponsive on mobile. Forcing a compositing
+   layer makes the state change repaint reliably. */
+.bd-sidebar-primary,
+.bd-sidebar-secondary {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: margin-left, margin-right, visibility;
+}
+
 
 .quiz-main-container {
   margin: 1rem 0;
@@ -163,7 +175,8 @@ h5 {
 :root {
   /* --exercise-color: #1e8fe538; */
   --exercise-color: rgb(0, 114, 178);
-  --exercise-border-color: #1e88e538;
+  --exercise-color-light: #1e88e538;
+  --exercise-border-color: var(--exercise-color-light);
   --exercise-bg: #1e88e51a;
   --exercise-body-bg: #2179c707;
   --exercise-color-dark: rgb(0, 114, 178);
@@ -177,7 +190,7 @@ h5 {
 .exercise-section {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    border-left: 4px solid var(--exercise-color);
+    border-left: 4px solid var(--exercise-color-light);
     padding-left: 0.5rem;
     /* background: var(--exercise-body-bg) !important; */
 }
@@ -198,7 +211,7 @@ h5 {
 .exercise-body {
     padding: 1rem 1rem 1rem 1rem !important;
     /* border-left: 6px solid var(--exercise-color); */
-    border: 1px solid var(--exercise-color);
+    border: 1px solid var(--exercise-color-light);
     border-top: none !important;
     /* border-radius: 0 0 0.7rem 0.7rem; */
     border-radius: 1.4rem;
@@ -208,16 +221,16 @@ h5 {
 
 
 @media (prefers-color-scheme: dark) {
-    .exercise-section {
+    [data-mode="auto"] .exercise-section {
         border-color: var(--exercise-color-dark);
     }
-    .exercise-section > h2,
-    .exercise-section > h3,
-    .exercise-section > h4,
-    .exercise-section > h5 {
+    [data-mode="auto"] .exercise-section > h2,
+    [data-mode="auto"] .exercise-section > h3,
+    [data-mode="auto"] .exercise-section > h4,
+    [data-mode="auto"] .exercise-section > h5 {
         border-color: var(--exercise-color-dark);
     }
-    .exercise-body {
+    [data-mode="auto"] .exercise-body {
         border-color: var(--exercise-color-dark);
     }
 }
@@ -231,6 +244,42 @@ h5 {
 [data-mode="dark"] .exercise-section > h4,
 [data-mode="dark"] .exercise-section > h5 {
     border-color: var(--exercise-color-dark);
+}
+
+[data-mode="dark"] .exercise-body {
+    border-color: var(--exercise-color-dark);
+}
+
+
+
+@media (prefers-color-scheme: light) {
+    [data-mode="auto"] .exercise-section {
+        border-color: var(--exercise-color-light);
+    }
+    [data-mode="auto"] .exercise-section > h2,
+    [data-mode="auto"] .exercise-section > h3,
+    [data-mode="auto"] .exercise-section > h4,
+    [data-mode="auto"] .exercise-section > h5 {
+        border-color: var(--exercise-color-light);
+    }
+    [data-mode="auto"] .exercise-body {
+        border-color: var(--exercise-color-light);
+    }
+}
+
+[data-mode="light"] .exercise-section {
+    border-color: var(--exercise-color-light);
+}
+
+[data-mode="light"] .exercise-section > h2,
+[data-mode="light"] .exercise-section > h3,
+[data-mode="light"] .exercise-section > h4,
+[data-mode="light"] .exercise-section > h5 {
+    border-color: var(--exercise-color-light);
+}
+
+[data-mode="light"] .exercise-body {
+    border-color: var(--exercise-color-light);
 }
 
 
