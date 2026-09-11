@@ -53,7 +53,7 @@ link-type: url
 
 ^^^
 
-:::{figure} ./logo/r2.png
+:::{figure} ./logo/r2.webp
 ---
 class: no-click
 width: 100%
