@@ -16,7 +16,7 @@ link-type: url
 
 :::{figure} ./logo/1t.png
 ---
-class: no-click
+class: no-click transparent-logo
 width: 100%
 ---
 :::
@@ -35,7 +35,7 @@ link-type: url
 
 :::{figure} ./logo/r1.png
 ---
-class: no-click
+class: no-click transparent-logo
 width: 100%
 ---
 :::
@@ -55,7 +55,7 @@ link-type: url
 
 :::{figure} ./logo/r2.webp
 ---
-class: no-click
+class: no-click transparent-logo
 width: 100%
 ---
 :::
