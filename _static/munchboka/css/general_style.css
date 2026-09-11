@@ -26,6 +26,16 @@
   height: auto;
 }
 
+/* pydata-sphinx-theme gives every <img> (unless .only-dark/.dark-light) a white
+   background-color and, in dark mode, a brightness/contrast filter — meant for
+   photos with a baked-in white background. That shows through as an unwanted
+   solid box (or checkerboard, for images with no real alpha channel) behind
+   transparent logo/branding images. Opt out with class="transparent-logo". */
+img.transparent-logo {
+  background: transparent !important;
+  filter: none !important;
+}
+
 /* --- Figure and graph styles --- */
 
 /* Prevent any anchor marked no-click from being clickable (used by inline SVG figures) */
